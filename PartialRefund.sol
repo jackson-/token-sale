@@ -28,9 +28,10 @@ contract PartialRefund is Ownable, ERC20 {
     }
 
     function mintTokens() public payable returns (bool success) {
-        require(msg.value == 1 ether, "Insuffienct funds to mint tokens. Cost is 1 ether.");
+        require(msg.value >= 1 ether, "Insuffienct funds to mint tokens. Cost is 1 ether.");
         require(totalSupply() < 1000000, "Token sale has reached one million tokens. Token sale is over.");
-        _mint(msg.sender, 1000);
+        uint256 tokens_to_mint = msg.value * 1000;
+        _mint(msg.sender, tokens_to_mint);
         return true;
     }
 
