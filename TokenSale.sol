@@ -13,7 +13,7 @@ contract ERC20TokenSale is Ownable, ERC20 {
 
     function mintTokens() public payable returns (bool success) {
         require(msg.value == 1 ether, "Insuffienct funds to mint tokens. Cost is 1 ether.");
-        require(totalSupply() >= 1000000, "Token sale has reached one million tokens. Token sale is over.");
+        require(totalSupply() < 1000000, "Token sale has reached one million tokens. Token sale is over.");
         _mint(msg.sender, 1000);
         return true;
     }
