@@ -10,7 +10,7 @@ contract PartialRefund is Ownable, ERC20 {
     constructor(uint256 initialSupply) ERC20("TestToken", "TEST") {
         _mint(msg.sender, initialSupply);
     }
-
+    
     function _beforeTokenTransfer(address from, address to, uint256 amount) internal override {
         super._beforeTokenTransfer(from, to, amount);
         if(to == address(this)){
@@ -30,7 +30,7 @@ contract PartialRefund is Ownable, ERC20 {
     function mintTokens() public payable returns (bool success) {
         require(msg.value >= 1 ether, "Insuffienct funds to mint tokens. Cost is 1 ether.");
         require(totalSupply() < 1000000, "Token sale has reached one million tokens. Token sale is over.");
-        uint256 tokens_to_mint = msg.value * 1000;
+        uint256 tokens_to_mint = msg.value * 1000/10**18;
         _mint(msg.sender, tokens_to_mint);
         return true;
     }
